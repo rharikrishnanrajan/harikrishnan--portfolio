@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#6e98ff" />
+      <stop offset="35%" stop-color="#8bb0ff" />
+      <stop offset="70%" stop-color="#bed2ff" />
+      <stop offset="100%" stop-color="#f0f5ff" />
+    </linearGradient>
+    <filter id="subtleGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0b2b5c" flood-opacity="0.15" />
+    </filter>
+  </defs>
+  
+  <!-- Gradient Background Canvas -->
+  <rect width="512" height="512" rx="100" fill="url(#skyGrad)" />
+
+  <!-- HK Calligraphic Monogram -->
+  <g fill="#0b2b5c" filter="url(#subtleGlow)">
+    <text
+      x="256"
+      y="280"
+      font-family="'Brush Script MT', 'Dancing Script', 'Snell Roundhand', 'Bickham Script Pro', 'Playfair Display', cursive, serif"
+      font-size="210"
+      font-style="italic"
+      font-weight="bold"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      letter-spacing="-6"
+    >
+      HK
+    </text>
+  </g>
+</svg>

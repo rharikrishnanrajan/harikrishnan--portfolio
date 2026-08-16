@@ -1,0 +1,303 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  color-scheme: light;
+  
+  /* Luminous Titanium & Obsidian Navy Palette */
+  --color-bg: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-surface-subtle: #F1F5F9;
+  --color-surface-elevated: #EDF3FE;
+  --color-text: #0B1528;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748B;
+  --color-border: rgba(11, 21, 40, 0.08);
+  --color-border-strong: rgba(11, 21, 40, 0.16);
+  --color-accent: #0B1528;
+  --color-accent-hover: #1E293B;
+  --color-accent-contrast: #FFFFFF;
+  --color-grid: rgba(79, 117, 250, 0.035);
+
+  /* Signature Periwinkle / Sky Blue Gradient from HK Monogram */
+  --btn-gradient: linear-gradient(135deg, #4d77f8 0%, #729bfe 45%, #abc5ff 80%, #e2edff 100%);
+  --btn-gradient-hover: linear-gradient(135deg, #3d68f0 0%, #608cfb 45%, #9cbbfd 80%, #d5e5ff 100%);
+  --btn-gradient-text: #051838;
+  --btn-gradient-border: #4d77f8;
+  --btn-shadow: 0 4px 14px rgba(77, 119, 248, 0.22);
+  --btn-shadow-hover: 0 6px 20px rgba(77, 119, 248, 0.35);
+}
+
+html.dark {
+  color-scheme: dark;
+  
+  /* Deep Cosmic Obsidian & Electric Periwinkle Palette */
+  --color-bg: #070B14;
+  --color-surface: #0E1626;
+  --color-surface-subtle: #131E33;
+  --color-surface-elevated: #1A2844;
+  --color-text: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+  --color-border: rgba(148, 163, 184, 0.12);
+  --color-border-strong: rgba(148, 163, 184, 0.22);
+  --color-accent: #F8FAFC;
+  --color-accent-hover: #E2E8F0;
+  --color-accent-contrast: #070B14;
+  --color-grid: rgba(114, 155, 250, 0.04);
+
+  /* Signature Electric Periwinkle in Dark Mode */
+  --btn-gradient: linear-gradient(135deg, #507bf8 0%, #769efe 45%, #b0c9ff 80%, #e1edff 100%);
+  --btn-gradient-hover: linear-gradient(135deg, #416cf5 0%, #6691fa 45%, #9ebefc 80%, #d1e2fc 100%);
+  --btn-gradient-text: #04142e;
+  --btn-gradient-border: #729bfa;
+  --btn-shadow: 0 4px 16px rgba(114, 155, 250, 0.28);
+  --btn-shadow-hover: 0 6px 24px rgba(114, 155, 250, 0.42);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: auto;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background-color: #507bf8;
+    color: #FFFFFF;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--btn-gradient-border);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html.lenis,
+    html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Custom CSS Components defined with standard CSS properties */
+.container-portfolio {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1440px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+@media (min-width: 375px) {
+  .container-portfolio {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 768px) {
+  .container-portfolio {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .container-portfolio {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--color-text-muted);
+}
+@media (min-width: 768px) {
+  .eyebrow {
+    font-size: 0.75rem;
+  }
+}
+
+.section-heading {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  color: var(--color-text);
+}
+@media (min-width: 768px) {
+  .section-heading {
+    font-size: 2.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .section-heading {
+    font-size: 3rem;
+  }
+}
+
+/* Signature luxury gradient button */
+.btn-primary {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  border-radius: 0;
+  padding: 0.75rem 1.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--btn-gradient);
+  color: var(--btn-gradient-text);
+  border: 1px solid var(--btn-gradient-border);
+  box-shadow: var(--btn-shadow);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: var(--btn-gradient-hover);
+  box-shadow: var(--btn-shadow-hover);
+  filter: brightness(1.04);
+}
+.btn-primary:active {
+  transform: scale(0.99);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  border-radius: 0;
+  border: 1px solid var(--color-border-strong);
+  background-color: var(--color-surface);
+  padding: 0.75rem 1.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  border-color: #507bf8;
+  background-color: var(--color-surface-elevated);
+}
+.btn-secondary:active {
+  transform: scale(0.99);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--color-text-secondary);
+  transition: color 0.2s ease;
+}
+.btn-ghost:hover {
+  color: var(--color-text);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  padding: 0.25rem 0.625rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chip:hover {
+  border-color: rgba(80, 123, 248, 0.5);
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text);
+}
+
+.theme-toggle-btn {
+  display: inline-flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.theme-toggle-btn:hover {
+  border-color: rgba(80, 123, 248, 0.6);
+  background-color: var(--color-surface-subtle);
+}
+
+/* Subtle engineering grid used behind the hero */
+.hero-grid {
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 45%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 45%, transparent 85%);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
