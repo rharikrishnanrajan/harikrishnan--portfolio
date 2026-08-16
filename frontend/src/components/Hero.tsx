@@ -1,58 +1,74 @@
 import React, { useLayoutEffect, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Mail } from 'lucide-react';
 import { gsap } from '../lib/gsap';
 import { scrollToId } from '../lib/scroll';
-import InfrastructureVisual from './InfrastructureVisual';
+import { personal } from '../data/seed';
+
+const LEFT_PILLS = [
+  { label: 'AWS & ECS Fargate', offset: 'ml-0' },
+  { label: 'CI/CD Pipelines', offset: 'ml-[-1.5rem]' },
+  { label: 'Docker & Swarm', offset: 'ml-4' },
+];
+
+const RIGHT_PILLS = [
+  { label: 'Jenkins As Code', offset: 'mr-0' },
+  { label: 'DevSecOps & Trivy', offset: 'mr-[-1.5rem]' },
+  { label: 'Linux & Shell', offset: 'mr-4' },
+];
 
 export const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    const card = cardRef.current;
+    if (!section || !card) return;
 
     const mm = gsap.matchMedia();
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
-      const timeline = gsap.timeline({
-        defaults: { ease: 'power3.out' },
-      });
 
-      timeline
-        .fromTo(
-          '.hero-status-label',
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.6, delay: 0.2 }
-        )
-        .fromTo(
-          '.hero-title-line',
-          { yPercent: 110 },
-          { yPercent: 0, duration: 0.9, stagger: 0.12 },
-          '-=0.2'
-        )
-        .fromTo(
-          '.hero-description',
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          '-=0.5'
-        )
-        .fromTo(
-          '.hero-cta-group',
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
-          '-=0.4'
-        )
-        .fromTo(
-          '.hero-metrics-bar',
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.6 },
-          '-=0.3'
-        )
-        .fromTo(
-          '.hero-visual-container',
-          { opacity: 0, scale: 0.98, y: 20 },
-          { opacity: 1, scale: 1, y: 0, duration: 0.9, ease: 'power2.out' },
-          '-=0.7'
-        );
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      // Set initial states
+      gsap.set(card, { opacity: 0, scale: 0.96 });
+      gsap.set('.hero-watermark', { opacity: 0 });
+      gsap.set('.hero-portrait', { opacity: 0, y: 40, filter: 'blur(8px)' });
+      gsap.set('.hero-headline', { opacity: 0, y: 24 });
+      gsap.set('.hero-subtitle', { opacity: 0, y: 16 });
+      gsap.set('.hero-pill', { opacity: 0, scale: 0.85 });
+      gsap.set('.hero-cta-group', { opacity: 0, y: 16 });
+      gsap.set('.hero-meta-bar', { opacity: 0, y: 12 });
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl
+        // 1. Card scales in
+        .to(card, { opacity: 1, scale: 1, duration: 0.85, ease: 'expo.out' })
+        // 2. Watermark background text fades in
+        .to('.hero-watermark', { opacity: 1, duration: 1.2, ease: 'power2.out' }, '-=0.6')
+        // 3. Portrait slides up and deblurs
+        .to('.hero-portrait', {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 0.9,
+          ease: 'power3.out',
+        }, '-=0.7')
+        // 4. Headline
+        .to('.hero-headline', { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
+        // 5. Subtitle
+        .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+        // 6. Floating tech pills stagger in
+        .to('.hero-pill', {
+          opacity: 1,
+          scale: 1,
+          duration: 0.55,
+          stagger: 0.08,
+          ease: 'back.out(1.7)',
+        }, '-=0.4')
+        // 7. CTAs
+        .to('.hero-cta-group', { opacity: 1, y: 0, duration: 0.55 }, '-=0.3')
+        // 8. Meta bar
+        .to('.hero-meta-bar', { opacity: 1, y: 0, duration: 0.5 }, '-=0.3');
     });
 
     return () => mm.revert();
@@ -62,87 +78,164 @@ export const Hero: React.FC = () => {
     <section
       ref={sectionRef}
       id="top"
-      className="relative flex min-h-screen flex-col justify-between overflow-hidden border-b border-border bg-background pt-24 md:pt-28 lg:pt-32"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-4 py-8 pt-24 md:pt-28 lg:pt-20"
     >
-      {/* Background Engineering Grid with subtle radial mask */}
-      <div className="pointer-events-none absolute inset-0 hero-grid" aria-hidden="true" />
+      {/* Outer ambient glow blob (dark mode only) */}
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden="true"
+      >
+        <div
+          className="absolute left-1/2 top-1/3 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 dark:opacity-100"
+          style={{
+            background:
+              'radial-gradient(circle, rgba(77,119,248,0.08) 0%, rgba(77,119,248,0.03) 50%, transparent 80%)',
+          }}
+        />
+      </div>
 
-      {/* Main 12-Column Responsive Desktop Grid */}
-      <div className="container-portfolio relative z-10 flex flex-1 flex-col justify-center py-10 md:py-16 lg:py-20">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14 xl:gap-16">
-          
-          {/* Left-aligned Content Block (~58% hero width on desktop: 7 cols of 12) */}
-          <div className="lg:col-span-7 xl:col-span-7">
-            
-            {/* Understated Availability / Status Label */}
-            <div className="hero-status-label inline-flex items-center gap-3 border border-border bg-surface px-3 py-1.5 transition-colors">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-              </span>
-              <span className="font-mono text-[10.5px] uppercase tracking-[0.24em] text-foreground-secondary md:text-[11px]">
-                DEVOPS ENGINEER&nbsp;&nbsp;·&nbsp;&nbsp;CLOUD&nbsp;&nbsp;·&nbsp;&nbsp;AUTOMATION
-              </span>
-            </div>
+      {/* Hero Card Container */}
+      <div
+        ref={cardRef}
+        className="relative w-full max-w-7xl overflow-hidden rounded-[2.5rem] border border-border bg-surface-subtle/50 shadow-2xl backdrop-blur-sm md:rounded-[3rem]"
+        style={{
+          boxShadow:
+            '0 0 0 1px rgba(77,119,248,0.06), 0 32px 80px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.04)',
+        }}
+      >
+        {/* Background Watermark Typography */}
+        <div
+          className="hero-watermark pointer-events-none absolute inset-0 flex items-center justify-center select-none overflow-hidden"
+          aria-hidden="true"
+        >
+          <span
+            className="font-black uppercase leading-none tracking-tighter text-foreground"
+            style={{
+              fontSize: 'clamp(8rem, 18vw, 22rem)',
+              opacity: 0.04,
+              letterSpacing: '-0.04em',
+            }}
+          >
+            DEVOPS
+          </span>
+        </div>
 
-            {/* Oversized Dominant Editorial Headline with tight line-height */}
-            <h1 className="mt-8 font-sans text-[clamp(2.5rem,6.5vw,5.4rem)] font-extrabold leading-[0.96] tracking-tighter text-foreground">
-              <span className="block overflow-hidden pb-1">
-                <span className="hero-title-line block">
-                  Building <span className="font-normal italic text-foreground-secondary">Reliable</span> Systems,
-                </span>
-              </span>
-              <span className="block overflow-hidden pb-2">
-                <span className="hero-title-line block text-foreground">
-                  One Deployment at a Time.
-                </span>
-              </span>
-            </h1>
+        {/* Left Floating Pills Column */}
+        <div className="absolute left-6 top-1/2 hidden -translate-y-1/2 flex-col gap-3 md:flex xl:left-10">
+          {LEFT_PILLS.map((pill) => (
+            <span
+              key={pill.label}
+              className={`hero-pill ${pill.offset} inline-flex items-center rounded-full border border-border bg-surface px-3.5 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-foreground-muted shadow-sm`}
+            >
+              {pill.label}
+            </span>
+          ))}
+        </div>
 
-            {/* Concise Supporting Paragraph (Narrow editorial composition) */}
-            <p className="hero-description mt-7 max-w-xl text-base leading-[1.65] text-foreground-secondary md:text-lg">
-              Specializing in cloud infrastructure, containerized architectures, CI/CD automation pipelines,
-              and deterministic software delivery with AWS, Docker, Jenkins, and modern systems engineering.
-            </p>
+        {/* Right Floating Pills Column */}
+        <div className="absolute right-6 top-1/2 hidden -translate-y-1/2 flex-col items-end gap-3 md:flex xl:right-10">
+          {RIGHT_PILLS.map((pill) => (
+            <span
+              key={pill.label}
+              className={`hero-pill ${pill.offset} inline-flex items-center rounded-full border border-border bg-surface px-3.5 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-foreground-muted shadow-sm`}
+            >
+              {pill.label}
+            </span>
+          ))}
+        </div>
 
-            {/* Rectangular CTA Actions */}
-            <div className="hero-cta-group mt-9 flex flex-wrap items-center gap-4">
-              <button
-                type="button"
-                onClick={() => scrollToId('projects')}
-                className="btn-primary group"
-              >
-                <span>View My Work</span>
-                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
-              </button>
-              
-              <button
-                type="button"
-                onClick={() => scrollToId('contact')}
-                className="btn-secondary"
-              >
-                <span>Let&apos;s Connect</span>
-              </button>
-            </div>
+        {/* Central Hero Core */}
+        <div className="relative z-10 flex flex-col items-center px-6 py-16 text-center md:px-24 md:py-20 lg:px-32 lg:py-24">
 
-            {/* Understated Tech Spec Metadata Row */}
-            <div className="hero-metrics-bar mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-border pt-6 font-mono text-[11px] uppercase tracking-tag text-foreground-muted">
-              <div>
-                <span className="text-foreground-muted/60">01 /</span> INFRASTRUCTURE: <span className="text-foreground font-medium">AWS &amp; ECS</span>
-              </div>
-              <div>
-                <span className="text-foreground-muted/60">02 /</span> PIPELINE: <span className="text-foreground font-medium">JENKINS AS CODE</span>
-              </div>
-              <div>
-                <span className="text-foreground-muted/60">03 /</span> RESILIENCE: <span className="text-foreground font-medium">MULTI-REGION</span>
-              </div>
-            </div>
 
+
+          {/* Circular Profile Portrait */}
+          <div className="hero-portrait relative mb-8 md:mb-10">
+            {/* Outer glow ring */}
+            <div
+              className="absolute -inset-1 rounded-full opacity-60"
+              style={{
+                background: 'linear-gradient(135deg, #4d77f8, #abc5ff, transparent)',
+                padding: '2px',
+              }}
+            />
+            <div
+              className="absolute -inset-3 rounded-full opacity-20 blur-xl dark:opacity-30"
+              style={{ background: 'linear-gradient(135deg, #4d77f8, #729bfe)' }}
+              aria-hidden="true"
+            />
+            <img
+              src="./images/profile.jpg"
+              alt={`${personal.name} — DevOps Engineer`}
+              className="relative h-40 w-40 rounded-full border-4 border-surface object-cover object-top shadow-2xl md:h-56 md:w-56 lg:h-64 lg:w-64"
+              loading="eager"
+              draggable={false}
+            />
           </div>
 
-          {/* Right-side Abstract Infrastructure Topology Visual (5 cols of 12) */}
-          <div className="hero-visual-container lg:col-span-5 xl:col-span-5">
-            <InfrastructureVisual />
+          {/* Headline */}
+          <h1
+            className="hero-headline font-sans font-extrabold leading-[0.92] tracking-tighter text-foreground"
+            style={{ fontSize: 'clamp(2.4rem, 6vw, 5rem)' }}
+          >
+            {personal.name}
+          </h1>
+
+          {/* Role label */}
+          <p className="hero-subtitle mt-3 font-mono text-xs font-semibold uppercase tracking-[0.3em] text-foreground-muted md:text-sm">
+            {personal.title} &nbsp;·&nbsp; Cloud &nbsp;·&nbsp; Automation
+          </p>
+
+          {/* Tagline */}
+          <p className="hero-subtitle mx-auto mt-6 max-w-xl text-base leading-relaxed text-foreground-secondary md:text-lg">
+            {personal.tagline}
+          </p>
+
+          {/* CTA Button Group */}
+          <div className="hero-cta-group mt-10 flex flex-wrap items-center justify-center gap-3 md:gap-4">
+            {/* Primary CTA */}
+            <button
+              type="button"
+              onClick={() => scrollToId('projects')}
+              className="group inline-flex items-center gap-2.5 rounded-full px-7 py-3 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200"
+              style={{
+                background: 'var(--btn-gradient)',
+                color: 'var(--btn-gradient-text)',
+                boxShadow: 'var(--btn-shadow)',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.background = 'var(--btn-gradient-hover)';
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = 'var(--btn-shadow-hover)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.background = 'var(--btn-gradient)';
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = 'var(--btn-shadow)';
+              }}
+            >
+              <span>View My Work</span>
+              <ArrowRight
+                className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </button>
+
+            {/* Secondary CTA */}
+            <button
+              type="button"
+              onClick={() => scrollToId('contact')}
+              className="group inline-flex items-center gap-2.5 rounded-full border border-border-strong bg-surface px-7 py-3 font-mono text-xs font-bold uppercase tracking-wider text-foreground-secondary transition-all duration-200 hover:border-[#4d77f8] hover:text-foreground"
+            >
+              <Mail className="h-3.5 w-3.5" aria-hidden="true" />
+              <span>Let&apos;s Connect</span>
+            </button>
+          </div>
+
+          {/* Meta bar */}
+          <div className="hero-meta-bar mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-border pt-8 font-mono text-[10.5px] uppercase tracking-widest text-foreground-muted">
+            <div>INFRA:&nbsp;<span className="text-foreground">AWS &amp; ECS</span></div>
+            <div>PIPELINE:&nbsp;<span className="text-foreground">JENKINS AS CODE</span></div>
+            <div>SECURITY:&nbsp;<span className="text-foreground">DEVSECOPS</span></div>
+            <div>RUNTIME:&nbsp;<span className="text-foreground">DOCKER &amp; SWARM</span></div>
           </div>
 
         </div>
