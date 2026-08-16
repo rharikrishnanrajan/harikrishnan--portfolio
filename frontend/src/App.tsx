@@ -20,7 +20,6 @@ import { useLenis } from './hooks/useLenis';
 import { useReducedMotion } from './hooks/useReducedMotion';
 import { scrollToId } from './lib/scroll';
 import {
-  checkBackendHealth,
   fetchCertifications,
   fetchProjects,
   fetchSkills,
@@ -41,7 +40,6 @@ function PortfolioApp(): JSX.Element {
   useLenis(!reducedMotion);
 
   const [data, setData] = useState<PortfolioData>(INITIAL_DATA);
-  const [backendOnline, setBackendOnline] = useState<boolean>(true);
   const [currentView, setCurrentView] = useState<ViewMode>('home');
   const [archiveTab, setArchiveTab] = useState<'projects' | 'certifications'>('projects');
 
@@ -77,8 +75,7 @@ function PortfolioApp(): JSX.Element {
       fetchProjects(),
       fetchSkills(),
       fetchCertifications(),
-      checkBackendHealth(),
-    ]).then(([projects, skills, certifications, online]) => {
+    ]).then(([projects, skills, certifications]) => {
       if (cancelled) return;
       setData((current) => ({
         ...current,
@@ -86,7 +83,6 @@ function PortfolioApp(): JSX.Element {
         skills,
         certifications,
       }));
-      setBackendOnline(online);
     });
 
     return () => {
@@ -140,7 +136,7 @@ function PortfolioApp(): JSX.Element {
         <Certifications certifications={data.certifications} onViewMore={() => openArchive('certifications')} />
         <Contact />
       </main>
-      <Footer backendOnline={backendOnline} />
+      <Footer />
     </>
   );
 }
