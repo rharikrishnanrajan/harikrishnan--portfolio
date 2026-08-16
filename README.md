@@ -5,7 +5,6 @@
 [![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI%2FCD-2088FF?style=flat&logo=github-actions&logoColor=white)](https://github.com/features/actions)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 A production-ready, cinematic editorial portfolio for **Harikrishnan R**, DevOps & Cloud Infrastructure Engineer specializing in AWS, Docker, CI/CD pipelines, containerization, and automation.
 
@@ -165,10 +164,6 @@ The contact form in the **Connect** section operates directly using the `mailto:
 
 ---
 
-## 📄 License
+## 🔒 Copyright & Ownership
 
-This project is open-source and available under the [ISC License](LICENSE).
-
----
-
-**Crafted by Harikrishnan R** — *DevOps & Cloud Infrastructure Engineer*
+© Harikrishnan R. All rights reserved. Personal portfolio and project showcase.
