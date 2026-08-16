@@ -4,11 +4,7 @@ import { personal } from '../data/seed';
 import { scrollToId } from '../lib/scroll';
 import { NAV_LINKS } from './Navbar';
 
-interface FooterProps {
-  backendOnline: boolean;
-}
-
-export const Footer: React.FC<FooterProps> = ({ backendOnline }) => {
+export const Footer: React.FC = () => {
   return (
     <footer className="border-t border-border bg-surface transition-colors duration-200">
       <div className="container-portfolio py-14 md:py-20">
@@ -50,34 +46,12 @@ export const Footer: React.FC<FooterProps> = ({ backendOnline }) => {
           </nav>
 
           <div className="md:col-span-4">
-            <p className="eyebrow text-foreground-muted">Network</p>
-            <ul className="mt-4 space-y-2">
-              <li>
-                <a
-                  href={personal.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 text-sm text-foreground-secondary transition-colors hover:text-foreground"
-                >
-                  <Github className="h-4 w-4 text-foreground" aria-hidden="true" />
-                  <span>GitHub</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href={personal.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 text-sm text-foreground-secondary transition-colors hover:text-foreground"
-                >
-                  <Linkedin className="h-4 w-4 text-foreground" aria-hidden="true" />
-                  <span>LinkedIn</span>
-                </a>
-              </li>
+            <p className="eyebrow text-foreground-muted">Direct</p>
+            <ul className="mt-4 space-y-2 text-sm text-foreground-secondary">
               <li>
                 <a
                   href={`mailto:${personal.email}`}
-                  className="inline-flex items-center gap-2.5 text-sm text-foreground-secondary transition-colors hover:text-foreground"
+                  className="inline-flex min-h-8 items-center gap-2 transition-colors hover:text-foreground"
                 >
                   <Mail className="h-4 w-4 text-foreground" aria-hidden="true" />
                   <span>{personal.email}</span>
@@ -85,8 +59,30 @@ export const Footer: React.FC<FooterProps> = ({ backendOnline }) => {
               </li>
               <li>
                 <a
+                  href={personal.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-8 items-center gap-2 transition-colors hover:text-foreground"
+                >
+                  <Github className="h-4 w-4 text-foreground" aria-hidden="true" />
+                  <span>github.com/rharikrishnanrajan</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={personal.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-8 items-center gap-2 transition-colors hover:text-foreground"
+                >
+                  <Linkedin className="h-4 w-4 text-foreground" aria-hidden="true" />
+                  <span>linkedin.com/in/rharikrishnanrajan</span>
+                </a>
+              </li>
+              <li>
+                <a
                   href={`tel:${personal.phone.replace(/\s+/g, '')}`}
-                  className="inline-flex items-center gap-2.5 text-sm text-foreground-secondary transition-colors hover:text-foreground"
+                  className="inline-flex min-h-8 items-center gap-2 transition-colors hover:text-foreground"
                 >
                   <Phone className="h-4 w-4 text-foreground" aria-hidden="true" />
                   <span>{personal.phone}</span>
@@ -106,12 +102,6 @@ export const Footer: React.FC<FooterProps> = ({ backendOnline }) => {
             <span>SYSTEMS OPERATIONAL</span>
           </div>
         </div>
-
-        {!backendOnline && (
-          <div className="mt-4 border border-border bg-surface-subtle p-3 font-mono text-[11px] leading-relaxed text-foreground-muted">
-            <span className="font-bold text-foreground">[notice]</span> Local standalone mode active — rendering built-in portfolio data.
-          </div>
-        )}
       </div>
     </footer>
   );
