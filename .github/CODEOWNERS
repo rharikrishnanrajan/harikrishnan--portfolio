@@ -1,0 +1,30 @@
+﻿# =============================================================================
+# CODEOWNERS — Harikrishanan R Portfolio
+# =============================================================================
+# Defines required reviewers for sensitive files and directories.
+# Any PR touching these paths REQUIRES approval from the listed owner(s)
+# before it can be merged — even if the actor has write access.
+#
+# Reference: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+# =============================================================================
+
+# ── Default owner for everything ─────────────────────────────────────────────
+*                                   @rharikrishnanrajan
+
+# ── CI/CD pipeline (highest risk — controls what gets deployed) ──────────────
+.github/workflows/                  @rharikrishnanrajan
+
+# ── Security-sensitive frontend files ────────────────────────────────────────
+frontend/index.html                 @rharikrishananrajan
+frontend/vite.config.ts             @rharikrishananrajan
+frontend/public/robots.txt          @rharikrishananrajan
+frontend/public/.well-known/        @rharikrishananrajan
+
+# ── API / network layer ───────────────────────────────────────────────────────
+frontend/src/services/              @rharikrishananrajan
+
+# ── Contact form (handles user input) ────────────────────────────────────────
+frontend/src/components/Contact.tsx @rharikrishananrajan
+
+# ── This file itself ──────────────────────────────────────────────────────────
+.github/CODEOWNERS                  @rharikrishananrajan

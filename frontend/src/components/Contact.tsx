@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -15,26 +15,66 @@ import { ContactPayload } from '../types/portfolio';
 
 type FieldName = 'name' | 'email' | 'subject' | 'message';
 type FormErrors = Partial<Record<FieldName, string>>;
-type SubmitStatus = 'idle' | 'success';
+type SubmitStatus = 'idle' | 'success' | 'rate-limited';
 
 const EMPTY_FORM: ContactPayload = { name: '', email: '', subject: '', message: '' };
 
+// ── Security: Input length caps to prevent payload injection ─────────────────
+const FIELD_MAX_LENGTHS: Record<FieldName, number> = {
+  name: 100,
+  email: 254,   // RFC 5321 maximum email length
+  subject: 200,
+  message: 2000,
+};
+
+// ── Security: Rate limiting — 60 seconds between submissions ─────────────────
+const RATE_LIMIT_MS = 60_000;
+
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/**
+ * Sanitize a string for safe inclusion in a mailto: URL body.
+ * Strips control characters and trims whitespace to prevent header injection.
+ */
+function sanitizeField(value: string): string {
+  return value
+    .trim()
+    // Remove ASCII control characters (0x00-0x1F, 0x7F) that could break mailto headers
+    .replace(/[\x00-\x1F\x7F]/g, '')
+    // Collapse multiple consecutive whitespace into single space
+    .replace(/\s{3,}/g, '  ');
+}
 
 function validate(values: ContactPayload): FormErrors {
   const errors: FormErrors = {};
 
-  if (values.name.trim().length < 2) {
+  const name = values.name.trim();
+  const email = values.email.trim();
+  const subject = values.subject.trim();
+  const message = values.message.trim();
+
+  if (name.length < 2) {
     errors.name = 'Please enter your name (at least 2 characters).';
+  } else if (name.length > FIELD_MAX_LENGTHS.name) {
+    errors.name = `Name must be under ${FIELD_MAX_LENGTHS.name} characters.`;
   }
-  if (!EMAIL_PATTERN.test(values.email.trim())) {
+
+  if (!EMAIL_PATTERN.test(email)) {
     errors.email = 'Please enter a valid email address.';
+  } else if (email.length > FIELD_MAX_LENGTHS.email) {
+    errors.email = `Email address is too long.`;
   }
-  if (values.subject.trim().length < 3) {
+
+  if (subject.length < 3) {
     errors.subject = 'Please add a subject (at least 3 characters).';
+  } else if (subject.length > FIELD_MAX_LENGTHS.subject) {
+    errors.subject = `Subject must be under ${FIELD_MAX_LENGTHS.subject} characters.`;
   }
-  if (values.message.trim().length < 10) {
+
+  if (message.length < 10) {
     errors.message = 'Please write a message (at least 10 characters).';
+  } else if (message.length > FIELD_MAX_LENGTHS.message) {
+    errors.message = `Message must be under ${FIELD_MAX_LENGTHS.message} characters.`;
   }
 
   return errors;
@@ -46,24 +86,54 @@ export const Contact: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<SubmitStatus>('idle');
 
+  // ── Security: Honeypot ref — hidden from humans, filled by bots ───────────
+  const honeypotRef = useRef<HTMLInputElement>(null);
+
+  // ── Security: Rate limiting — track last submission timestamp ─────────────
+  const lastSubmitRef = useRef<number>(0);
+
   const handleChange = (field: FieldName, value: string): void => {
-    setValues((current) => ({ ...current, [field]: value }));
+    // Enforce max length on change to prevent paste-overflow attacks
+    const capped = value.slice(0, FIELD_MAX_LENGTHS[field]);
+    setValues((current) => ({ ...current, [field]: capped }));
     setErrors((current) => ({ ...current, [field]: undefined }));
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
+    // ── Security Layer 1: Honeypot check ─────────────────────────────────────
+    // If the hidden honeypot field has any value, this is almost certainly a bot.
+    // We silently pretend success to avoid tipping off the attacker.
+    if (honeypotRef.current?.value) {
+      setStatus('success');
+      return;
+    }
+
+    // ── Security Layer 2: Client-side rate limiting ───────────────────────────
+    const now = Date.now();
+    if (now - lastSubmitRef.current < RATE_LIMIT_MS) {
+      setStatus('rate-limited');
+      return;
+    }
+
     const nextErrors = validate(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    const subject = encodeURIComponent(values.subject.trim());
+    // ── Security Layer 3: Sanitize all fields before building mailto: URL ─────
+    const cleanName = sanitizeField(values.name);
+    const cleanEmail = sanitizeField(values.email);
+    const cleanSubject = sanitizeField(values.subject);
+    const cleanMessage = sanitizeField(values.message);
+
+    const subject = encodeURIComponent(cleanSubject);
     const body = encodeURIComponent(
-      `Name: ${values.name.trim()}\nEmail: ${values.email.trim()}\n\nMessage:\n${values.message.trim()}`
+      `Name: ${cleanName}\nEmail: ${cleanEmail}\n\nMessage:\n${cleanMessage}`
     );
     const mailtoUrl = `mailto:${personal.email}?subject=${subject}&body=${body}`;
 
+    lastSubmitRef.current = now;
     window.location.href = mailtoUrl;
     setStatus('success');
   };
@@ -152,7 +222,27 @@ export const Contact: React.FC = () => {
           {/* Right Column: Contact form */}
           <div className="lg:col-span-7">
             <div data-reveal>
-              {status === 'success' ? (
+              {status === 'rate-limited' ? (
+                <div
+                  role="alert"
+                  className="flex min-h-40 flex-col items-start justify-center border border-amber-400/40 bg-amber-50/10 p-8"
+                >
+                  <p className="font-sans text-sm font-semibold text-foreground">
+                    Please wait before sending another message.
+                  </p>
+                  <p className="mt-2 text-xs text-foreground-muted">
+                    You can submit again in about a minute. This helps keep the
+                    form free from automated spam.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={handleReset}
+                    className="btn-secondary mt-6"
+                  >
+                    Go back
+                  </button>
+                </div>
+              ) : status === 'success' ? (
                 <div
                   role="status"
                   className="flex min-h-96 flex-col items-start justify-center border border-border bg-surface p-8 md:p-12"
@@ -180,6 +270,39 @@ export const Contact: React.FC = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-6">
+
+                  {/*
+                    ── Security: Honeypot field ─────────────────────────────────
+                    Visually hidden via CSS (NOT display:none / visibility:hidden
+                    because many bots detect those).
+                    Real users never see or interact with this field.
+                    If it has a value on submit → bot detected → silent drop.
+                    aria-hidden prevents screen readers from announcing it.
+                  */}
+                  <div
+                    aria-hidden="true"
+                    style={{
+                      position: 'absolute',
+                      left: '-9999px',
+                      width: '1px',
+                      height: '1px',
+                      overflow: 'hidden',
+                      opacity: 0,
+                      pointerEvents: 'none',
+                      tabIndex: -1,
+                    } as React.CSSProperties}
+                  >
+                    <label htmlFor="contact-website">Website</label>
+                    <input
+                      id="contact-website"
+                      name="website"
+                      type="text"
+                      ref={honeypotRef}
+                      autoComplete="off"
+                      tabIndex={-1}
+                    />
+                  </div>
+
                   <div className="grid gap-6 sm:grid-cols-2">
                     <div>
                       <label htmlFor="contact-name" className="eyebrow block">
@@ -191,6 +314,7 @@ export const Contact: React.FC = () => {
                         type="text"
                         autoComplete="name"
                         required
+                        maxLength={FIELD_MAX_LENGTHS.name}
                         className={`mt-2 ${inputClass(Boolean(errors.name))}`}
                         placeholder="Your name"
                         value={values.name}
@@ -215,6 +339,7 @@ export const Contact: React.FC = () => {
                         type="email"
                         autoComplete="email"
                         required
+                        maxLength={FIELD_MAX_LENGTHS.email}
                         className={`mt-2 ${inputClass(Boolean(errors.email))}`}
                         placeholder="you@domain.com"
                         value={values.email}
@@ -239,6 +364,7 @@ export const Contact: React.FC = () => {
                       name="subject"
                       type="text"
                       required
+                      maxLength={FIELD_MAX_LENGTHS.subject}
                       className={`mt-2 ${inputClass(Boolean(errors.subject))}`}
                       placeholder="e.g. DevOps Role / Cloud Architecture Inquiry"
                       value={values.subject}
@@ -262,6 +388,7 @@ export const Contact: React.FC = () => {
                       name="message"
                       required
                       rows={5}
+                      maxLength={FIELD_MAX_LENGTHS.message}
                       className={`mt-2 resize-y ${inputClass(Boolean(errors.message))}`}
                       placeholder="Describe your project, systems requirements, or opportunity..."
                       value={values.message}
@@ -295,3 +422,4 @@ export const Contact: React.FC = () => {
 };
 
 export default Contact;
+

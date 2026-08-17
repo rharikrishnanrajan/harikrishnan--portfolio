@@ -1,0 +1,24 @@
+﻿# =============================================================================
+# security.txt — RFC 9116 Responsible Disclosure Policy
+# https://securitytxt.org/
+# =============================================================================
+# If you discover a security vulnerability in this website, please report it
+# responsibly using the contact below. Do NOT publicly disclose before
+# coordinating with the site owner.
+# =============================================================================
+
+Contact: mailto:rharikrishnanrajan@gmail.com
+Preferred-Languages: en
+Canonical: https://rharikrishananrajan.github.io/.well-known/security.txt
+
+# Please allow reasonable time for a fix before public disclosure.
+Policy: https://rharikrishananrajan.github.io/security-policy.html
+
+# This file expires after 1 year. Verify freshness before reporting.
+Expires: 2027-08-17T00:00:00.000Z
+
+# Encryption: (add your PGP public key URL here if you have one)
+# Encryption: https://rharikrishananrajan.github.io/pgp-key.txt
+
+# Acknowledgements: We thank all responsible reporters.
+# Acknowledgments: https://rharikrishananrajan.github.io/thanks.html

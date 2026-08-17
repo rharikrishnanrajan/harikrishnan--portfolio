@@ -3,6 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ============================================================
+         SECURITY HEADERS (injected as meta — GitHub Pages limitation)
+         For server-based deployments, move these to HTTP response headers.
+         ============================================================ -->
+
+    <!--
+      Content-Security-Policy:
+        default-src 'self'           — only load resources from same origin by default
+        script-src 'self'            — no inline scripts, no eval
+        style-src 'self' 'unsafe-inline' fonts.googleapis.com  — Tailwind inlines some styles; Google Fonts
+        font-src 'self' fonts.gstatic.com data:               — Google Fonts CDN + data URIs for icons
+        img-src 'self' data: https:                            — images from same origin, data URIs, any HTTPS
+        connect-src 'self' localhost:* 127.0.0.1:*             — API calls only to self / local dev backend
+        frame-ancestors 'none'                                 — block all iframe embedding (clickjacking)
+        object-src 'none'                                      — block Flash/plugins
+        base-uri 'self'                                        — prevent base-tag injection
+        form-action 'self' mailto:                             — form can only submit to self or mailto:
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com data:;
+        img-src 'self' data: https:;
+        connect-src 'self' http://localhost:* http://127.0.0.1:*;
+        frame-src 'none';
+        frame-ancestors 'none';
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self' mailto:;
+        upgrade-insecure-requests;
+      "
+    />
+
+    <!-- Prevent MIME-type sniffing attacks -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+
+    <!--
+      Referrer-Policy:
+        strict-origin-when-cross-origin — sends full path for same-origin,
+        only the origin for cross-origin HTTPS, nothing for cross-origin HTTP.
+        Prevents leaking your personal info (email, phone) in Referer headers.
+    -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!--
+      Permissions-Policy:
+        Disable dangerous browser APIs that this portfolio never needs.
+        Prevents a compromised third-party script from accessing them.
+    -->
+    <meta
+      http-equiv="Permissions-Policy"
+      content="
+        camera=(),
+        microphone=(),
+        geolocation=(),
+        payment=(),
+        usb=(),
+        magnetometer=(),
+        accelerometer=(),
+        gyroscope=(),
+        fullscreen=(self),
+        picture-in-picture=()
+      "
+    />
+
+    <!-- Cross-Site-Scripting (XSS) Filter for legacy browsers -->
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+
+    <!-- END SECURITY HEADERS -->
+
     <title>Harikrishnan R — DevOps &amp; Cloud Infrastructure Engineer</title>
     <meta
       name="description"

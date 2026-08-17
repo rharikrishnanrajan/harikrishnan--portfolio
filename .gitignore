@@ -1,10 +1,103 @@
+# =============================================================================
+# .gitignore — Harikrishanan R Portfolio
+# Security-hardened: never allow secrets, keys, or credentials to be committed.
+# =============================================================================
+
+# ── Dependencies ──────────────────────────────────────────────────────────────
 node_modules/
+.pnp
+.pnp.js
+
+# ── Build output ──────────────────────────────────────────────────────────────
 dist/
+dist-ssr/
+build/
+out/
+.next/
+.nuxt/
+
+# ── Environment variables & secrets (NEVER commit these) ─────────────────────
 .env
-.env.local
-.env.local.example
+.env.*
+!.env.example        # allow the example template
+!.env.*.example      # allow named example templates
+*.local
+
+# ── Private keys & certificates (CRITICAL — never commit) ────────────────────
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+*.csr
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+id_ecdsa
+id_ecdsa.*
+*.keystore
+*.jks
+
+# ── Cloud provider credential files ──────────────────────────────────────────
+.aws/credentials
+.aws/config
+.gcloud/
+gcp-*.json
+*-service-account.json
+serviceAccountKey.json
+firebase-adminsdk*.json
+.npmrc              # may contain auth tokens
+.yarnrc             # may contain auth tokens
+
+# ── Secret / credential file patterns ────────────────────────────────────────
+*secret*
+*secrets*
+*credential*
+*credentials*
+*password*
+*token*
+*apikey*
+*api_key*
+# (allow these if they are README/doc files)
+!*secret*.md
+!*credential*.md
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
 *.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ── TypeScript build info ─────────────────────────────────────────────────────
 *.tsbuildinfo
+
+# ── OS / Editor artefacts ─────────────────────────────────────────────────────
 .DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# ── Coverage & test output ────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+*.lcov
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+.cache/
+.temp/
+.tmp/
+*.bak
+*.orig
