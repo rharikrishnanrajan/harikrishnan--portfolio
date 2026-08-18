@@ -78,7 +78,7 @@ export const Hero: React.FC = () => {
     <section
       ref={sectionRef}
       id="top"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-4 py-8 pt-24 md:pt-28 lg:pt-20"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-4 py-8 pt-20 md:pt-24 lg:pt-28"
     >
       {/* Outer ambient glow blob (dark mode only) */}
       <div
@@ -97,10 +97,10 @@ export const Hero: React.FC = () => {
       {/* Hero Card Container */}
       <div
         ref={cardRef}
-        className="relative w-full max-w-7xl overflow-hidden rounded-[2.5rem] border border-border bg-surface-subtle/50 shadow-2xl backdrop-blur-sm md:rounded-[3rem]"
+        className="relative w-full max-w-7xl overflow-hidden rounded-[2.5rem] border-2 border-border-strong bg-surface-subtle/50 shadow-2xl backdrop-blur-sm md:rounded-[3rem]"
         style={{
           boxShadow:
-            '0 0 0 1px rgba(77,119,248,0.06), 0 32px 80px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.04)',
+            '0 0 0 1px rgba(77,119,248,0.18), 0 32px 80px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.04)',
         }}
       >
         {/* Background Watermark Typography */}
@@ -145,12 +145,12 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Central Hero Core */}
-        <div className="relative z-10 flex flex-col items-center px-6 py-16 text-center md:px-24 md:py-20 lg:px-32 lg:py-24">
+        <div className="relative z-10 flex flex-col items-center px-6 pt-10 pb-8 text-center md:px-24 md:pt-12 md:pb-10 lg:px-32 lg:pt-14 lg:pb-12">
 
 
 
           {/* Circular Profile Portrait */}
-          <div className="hero-portrait relative mb-8 md:mb-10">
+          <div className="hero-portrait relative mb-6 md:mb-8">
             {/* Outer glow ring */}
             <div
               className="absolute -inset-1 rounded-full opacity-60"
@@ -167,7 +167,7 @@ export const Hero: React.FC = () => {
             <img
               src="./images/profile.jpg"
               alt={`${personal.name} — DevOps Engineer`}
-              className="relative h-40 w-40 rounded-full border-4 border-surface object-cover object-top shadow-2xl md:h-56 md:w-56 lg:h-64 lg:w-64"
+              className="relative h-36 w-36 rounded-full border-4 border-surface object-cover object-top shadow-2xl md:h-48 md:w-48 lg:h-52 lg:w-52"
               loading="eager"
               draggable={false}
             />
@@ -187,12 +187,12 @@ export const Hero: React.FC = () => {
           </p>
 
           {/* Tagline */}
-          <p className="hero-subtitle mx-auto mt-6 max-w-xl text-base leading-relaxed text-foreground-secondary md:text-lg">
+          <p className="hero-subtitle mx-auto mt-4 max-w-xl text-base leading-relaxed text-foreground-secondary md:text-lg">
             {personal.tagline}
           </p>
 
           {/* CTA Button Group */}
-          <div className="hero-cta-group mt-10 flex flex-wrap items-center justify-center gap-3 md:gap-4">
+          <div className="hero-cta-group mt-6 md:mt-8 flex flex-wrap items-center justify-center gap-3 md:gap-4">
             {/* Primary CTA */}
             <button
               type="button"
@@ -231,7 +231,7 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Meta bar */}
-          <div className="hero-meta-bar mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-border pt-8 font-mono text-[10.5px] uppercase tracking-widest text-foreground-muted">
+          <div className="hero-meta-bar mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-border pt-6 font-mono text-[10.5px] uppercase tracking-widest text-foreground-muted">
             <div>INFRA:&nbsp;<span className="text-foreground">AWS &amp; ECS</span></div>
             <div>PIPELINE:&nbsp;<span className="text-foreground">JENKINS AS CODE</span></div>
             <div>SECURITY:&nbsp;<span className="text-foreground">DEVSECOPS</span></div>

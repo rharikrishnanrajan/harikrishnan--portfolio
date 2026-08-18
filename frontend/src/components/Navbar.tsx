@@ -48,7 +48,7 @@ export const Navbar: React.FC = () => {
         className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md transition-colors duration-200"
       >
         <nav
-          className="container-portfolio flex h-16 items-center justify-between md:h-20"
+          className="container-portfolio relative flex h-14 items-center justify-between md:h-16"
           aria-label="Primary"
         >
           {/* Logo / Monogram Mark */}
@@ -59,7 +59,7 @@ export const Navbar: React.FC = () => {
               event.preventDefault();
               scrollToId('top', true);
             }}
-            className="group flex min-h-11 items-center gap-3 font-mono text-xs font-semibold tracking-wider text-foreground"
+            className="group flex min-h-11 items-center gap-3 font-mono text-xs font-semibold tracking-wider text-foreground z-10"
             aria-label="Harikrishnan R — back to top"
           >
             <span className="flex h-7 w-7 items-center justify-center border border-border-strong bg-surface font-mono text-[11px] font-bold transition-all group-hover:border-[#648dfa] group-hover:bg-gradient-to-br group-hover:from-[#6e98ff] group-hover:to-[#e8f0fe] group-hover:text-[#0b2b5c]">
@@ -70,36 +70,34 @@ export const Navbar: React.FC = () => {
             </span>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden items-center md:flex" data-nav>
-            <ul className="flex items-center gap-6 lg:gap-8">
+          {/* Desktop Navigation Links (Pill centered) */}
+          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center z-0" data-nav>
+            <ul className="flex items-center gap-1 border border-border bg-surface-subtle/40 px-5 py-1.5 rounded-full backdrop-blur-md">
               {NAV_LINKS.map((link) => (
                 <li key={link.id}>
                   <button
                     type="button"
                     onClick={() => handleNavClick(link.id)}
-                    className="min-h-11 px-1 font-mono text-[11px] uppercase tracking-tag text-foreground-secondary transition-colors hover:text-foreground"
+                    className="px-3.5 py-1 font-mono text-[10.5px] uppercase tracking-tag text-foreground-secondary transition-colors hover:text-foreground"
                   >
                     {link.label}
                   </button>
                 </li>
               ))}
             </ul>
+          </div>
 
-            <span className="mx-5 h-4 w-px bg-border-strong" aria-hidden="true" />
-
-            {/* Theme Toggle Button */}
-            <div className="flex items-center gap-3">
-              <ThemeToggle />
-              
-              <button
-                type="button"
-                onClick={() => scrollToId('contact')}
-                className="btn-primary !min-h-9 px-4 !py-1.5 text-[11px]"
-              >
-                Let&apos;s Connect
-              </button>
-            </div>
+          {/* Desktop Right Controls (Theme Toggle + Connect Button) */}
+          <div className="hidden md:flex items-center gap-3 z-10" data-nav>
+            <ThemeToggle />
+            
+            <button
+              type="button"
+              onClick={() => scrollToId('contact')}
+              className="btn-primary !min-h-9 px-4 !py-1.5 text-[11px]"
+            >
+              Let&apos;s Connect
+            </button>
           </div>
 
           {/* Mobile Right Controls: Theme Toggle + Menu Button */}
