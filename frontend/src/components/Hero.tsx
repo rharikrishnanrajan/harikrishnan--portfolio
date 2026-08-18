@@ -111,7 +111,7 @@ export const Hero: React.FC = () => {
           <span
             className="font-black uppercase leading-none tracking-tighter text-foreground"
             style={{
-              fontSize: 'clamp(8rem, 18vw, 22rem)',
+              fontSize: 'clamp(3rem, 16vw, 22rem)',
               opacity: 0.04,
               letterSpacing: '-0.04em',
             }}
