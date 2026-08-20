@@ -63,10 +63,10 @@ export const Certifications: React.FC<CertificationsProps> = ({ certifications, 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 border border-border-strong bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground hover:border-[#507bf8] hover:bg-surface-elevated hover:text-[#507bf8] transition-all shadow-sm shrink-0"
-                    aria-label={`Open certificate PDF for ${certification.name}`}
-                    title="View Certificate PDF / Verification"
+                    aria-label={`Open certificate link for ${certification.name}`}
+                    title="View Certificate"
                   >
-                    <span>View PDF</span>
+                    <span>View Link</span>
                     <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                   </a>
                 )}

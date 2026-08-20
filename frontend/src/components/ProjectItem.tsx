@@ -60,10 +60,10 @@ export const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="shrink-0 inline-flex items-center gap-2 border border-border-strong bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground hover:border-[#507bf8] hover:bg-surface-elevated hover:text-[#507bf8] transition-all shadow-sm"
-                aria-label={`Open documentation or PDF for ${project.title}`}
-                title="Open Project Documentation / PDF"
+                aria-label={`Open link for ${project.title}`}
+                title="Open Project Link"
               >
-                <span>Docs / PDF</span>
+                <span>View Link</span>
                 <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
               </a>
             )}

@@ -93,27 +93,6 @@ export const seedProjects: Project[] = [
     docUrl: 'https://github.com/rharikrishnanrajan',
     order: 4,
   },
-  {
-    id: 'p05',
-    slug: 'nexara-ai-chatbot',
-    number: '05',
-    title: 'NEXARA (Chat with Artificial Intelligence)',
-    description:
-      'Engineered an intelligent conversational mobile application integrating Google Gemini AI API endpoints with structured client-side request processing and state management.',
-    highlights: [
-      'Built an AI chatbot mobile application in Flutter, integrated with the Gemini AI API to generate conversational responses.',
-      'Collaborated with UG classmate M.V. Gayathri to design and develop the app as a group mini project.',
-    ],
-    technologies: ['Flutter', 'Gemini AI API'],
-    category: 'Group Mini Project',
-    liveUrl: '',
-    repoUrl: '',
-    imageLabel: '',
-    collaborator: 'M.V. Gayathri',
-    date: 'June 2024',
-    docUrl: 'https://github.com/rharikrishnanrajan',
-    order: 5,
-  },
 ];
 
 export const seedSkills: SkillCategory[] = [
@@ -199,7 +178,7 @@ export const seedCertifications: Certification[] = [
     name: 'Fundamentals of Agile Methodology with DevOps Integration',
     issuer: 'L&T EduTech',
     date: 'Aug 2023 – Nov 2023',
-    pdfUrl: 'https://lntedutech.com',
+    pdfUrl: 'https://iggnitewebcertification.lntedutech.com/?certificationID=gbe49x_wWxx2Pew_865608465681876&name=Harikrishnan%20R&course=Fundamentals%20of%20Agile%20Methodology%20with%20DevOps%20Integration',
     order: 1,
   },
   {
@@ -207,7 +186,7 @@ export const seedCertifications: Certification[] = [
     name: 'DevOps and Cloud',
     issuer: 'L&T EduTech',
     date: 'Jan 2024 – Apr 2024',
-    pdfUrl: 'https://lntedutech.com',
+    pdfUrl: 'https://iggnitewebcertification.lntedutech.com/?certificationID=gbe49x_JB7eggbC_528918463317929&name=Harikrishnan%20R&course=DevOps%20and%20Cloud',
     order: 2,
   },
   {
@@ -215,24 +194,32 @@ export const seedCertifications: Certification[] = [
     name: 'DevOps Container Services',
     issuer: 'L&T EduTech',
     date: 'Jun 2024 – Oct 2024',
-    pdfUrl: 'https://lntedutech.com',
+    pdfUrl: 'https://iggnitewebcertification.lntedutech.com/?certificationID=gbe49x_8XgryPKy_122411642704012&name=Harikrishnan%20R&course=DevOps%20Container%20Services',
     order: 3,
   },
   {
     id: 'c04',
-    name: 'Blockchain and Its Applications',
-    issuer: 'NPTEL SWAYAM',
-    date: 'Jan 2026 – Apr 2026',
-    pdfUrl: 'https://nptel.ac.in',
+    name: 'Capstone Project',
+    issuer: 'L&T EduTech',
+    date: 'Nov 2024 – Mar 2025',
+    pdfUrl: 'https://iggnitewebcertification.lntedutech.com/?certificationID=gbe49x_RFbes6xU_201912934732364&name=Harikrishnan%20R&course=Capstone%20Project',
     order: 4,
   },
   {
     id: 'c05',
+    name: 'Blockchain and Its Applications',
+    issuer: 'NPTEL SWAYAM',
+    date: 'Jan 2026 – Apr 2026',
+    pdfUrl: 'https://nptel.ac.in/noc/E_Certificate/NOC26CS34S125050187004294908',
+    order: 5,
+  },
+  {
+    id: 'c06',
     name: 'Introduction to Data Science',
     issuer: 'Cisco Networking Academy',
     date: 'Jan 20, 2026',
-    pdfUrl: 'https://www.netacad.com',
-    order: 5,
+    pdfUrl: 'https://drive.google.com/file/d/16lS1Y4Vv54etwtUpWxQhVbPrB6mKMw5a/view?usp=sharing',
+    order: 6,
   },
 ];
 
