@@ -63,7 +63,6 @@ export const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
                 aria-label={`Open link for ${project.title}`}
                 title="Open Project Link"
               >
-                <span>View Link</span>
                 <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
               </a>
             )}

@@ -66,7 +66,6 @@ export const Certifications: React.FC<CertificationsProps> = ({ certifications, 
                     aria-label={`Open certificate link for ${certification.name}`}
                     title="View Certificate"
                   >
-                    <span>View Link</span>
                     <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                   </a>
                 )}
