@@ -25,6 +25,7 @@ export interface Project {
   date?: string;
   docUrl?: string;
   repoUrl?: string;
+  liveUrl?: string;
 }
 
 export interface SkillCategory {

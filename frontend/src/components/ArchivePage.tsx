@@ -240,8 +240,8 @@ export const ArchivePage: React.FC<ArchivePageProps> = ({
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 border border-border-strong bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground hover:border-[#507bf8] hover:bg-surface-elevated hover:text-[#507bf8] transition-all shadow-sm"
-                                aria-label={`Open link for ${project.title}`}
-                                title="Open Project Link"
+                                aria-label={`Open documentation for ${project.title}`}
+                                title="Open Project Documentation"
                               >
                                 <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                               </a>

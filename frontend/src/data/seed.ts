@@ -48,6 +48,7 @@ export const seedProjects: Project[] = [
     metric: '100% Service Availability During Outages',
     architectureType: 'Multi-Region High Availability & Failover',
     docUrl: 'https://github.com/rharikrishnanrajan',
+    repoUrl: 'https://github.com/rharikrishnanrajan',
   },
   {
     id: 'p02',
@@ -67,6 +68,7 @@ export const seedProjects: Project[] = [
     metric: '3-Node Clustered Quorum with Dynamic Load Balancing',
     architectureType: 'Swarm Ingress Mesh Architecture',
     docUrl: 'https://github.com/rharikrishnanrajan',
+    repoUrl: 'https://github.com/rharikrishnanrajan',
   },
   {
     id: 'p03',
@@ -85,6 +87,7 @@ export const seedProjects: Project[] = [
     metric: 'Automated Trivy CVE Security Gating Prior to Registry Push',
     architectureType: 'Declarative Pipeline-as-Code (DevSecOps)',
     docUrl: 'https://github.com/rharikrishnanrajan',
+    repoUrl: 'https://github.com/rharikrishnanrajan',
   },
   {
     id: 'p04',
@@ -105,6 +108,7 @@ export const seedProjects: Project[] = [
     metric: 'Deployment Time Reduced: Hours → Minutes',
     architectureType: 'Automated Continuous Delivery with ECR Rollbacks',
     docUrl: 'https://github.com/rharikrishnanrajan',
+    repoUrl: 'https://github.com/rharikrishnanrajan',
   },
 ];
 
