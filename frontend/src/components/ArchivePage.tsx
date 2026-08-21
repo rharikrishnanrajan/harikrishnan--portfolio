@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ArrowLeft, ExternalLink, Search, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Search, ShieldCheck } from 'lucide-react';
 import { Certification, Project } from '../types/portfolio';
 import ThemeToggle from './ThemeToggle';
 
@@ -219,18 +219,34 @@ export const ArchivePage: React.FC<ArchivePageProps> = ({
                             {project.title}
                           </h2>
 
-                          {project.docUrl && (
-                            <a
-                              href={project.docUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="shrink-0 inline-flex items-center gap-2 border border-border-strong bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground hover:border-[#507bf8] hover:bg-surface-elevated hover:text-[#507bf8] transition-all shadow-sm"
-                              aria-label={`Open link for ${project.title}`}
-                              title="Open Project Link"
-                            >
-                              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                            </a>
-                          )}
+                          {/* Action Buttons */}
+                          <div className="shrink-0 flex items-center gap-2">
+                            {project.repoUrl && (
+                              <a
+                                href={project.repoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 border border-border-strong bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground hover:border-[#507bf8] hover:bg-surface-elevated hover:text-[#507bf8] transition-all shadow-sm"
+                                aria-label={`GitHub repository for ${project.title}`}
+                                title="View on GitHub"
+                              >
+                                <Github className="h-3.5 w-3.5" aria-hidden="true" />
+                              </a>
+                            )}
+
+                            {project.docUrl && (
+                              <a
+                                href={project.docUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 border border-border-strong bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground hover:border-[#507bf8] hover:bg-surface-elevated hover:text-[#507bf8] transition-all shadow-sm"
+                                aria-label={`Open link for ${project.title}`}
+                                title="Open Project Link"
+                              >
+                                <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                              </a>
+                            )}
+                          </div>
                         </div>
 
                         <p className="mt-4 text-base leading-relaxed text-foreground-secondary">

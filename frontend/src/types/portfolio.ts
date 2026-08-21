@@ -24,6 +24,7 @@ export interface Project {
   collaborator?: string;
   date?: string;
   docUrl?: string;
+  repoUrl?: string;
 }
 
 export interface SkillCategory {
