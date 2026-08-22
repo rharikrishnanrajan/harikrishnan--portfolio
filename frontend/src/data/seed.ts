@@ -47,8 +47,8 @@ export const seedProjects: Project[] = [
     category: 'Final Year Project',
     metric: '100% Service Availability During Outages',
     architectureType: 'Multi-Region High Availability & Failover',
-    docUrl: 'https://github.com/rharikrishnanrajan',
-    repoUrl: 'https://github.com/rharikrishnanrajan',
+    docUrl: 'https://github.com/rharikrishnanrajan/tic-tac-toe',
+    repoUrl: 'https://github.com/rharikrishnanrajan/tic-tac-toe',
   },
   {
     id: 'p02',
@@ -87,7 +87,7 @@ export const seedProjects: Project[] = [
     metric: 'Automated Trivy CVE Security Gating Prior to Registry Push',
     architectureType: 'Declarative Pipeline-as-Code (DevSecOps)',
     docUrl: 'https://github.com/rharikrishnanrajan',
-    repoUrl: 'https://github.com/rharikrishnanrajan',
+    repoUrl: 'https://github.com/rharikrishnanrajan/Zomato-frontend-project',
   },
   {
     id: 'p04',
@@ -108,7 +108,7 @@ export const seedProjects: Project[] = [
     metric: 'Deployment Time Reduced: Hours → Minutes',
     architectureType: 'Automated Continuous Delivery with ECR Rollbacks',
     docUrl: 'https://github.com/rharikrishnanrajan',
-    repoUrl: 'https://github.com/rharikrishnanrajan',
+    repoUrl: 'https://github.com/rharikrishnanrajan/Zomato-frontend-project',
   },
 ];
 
